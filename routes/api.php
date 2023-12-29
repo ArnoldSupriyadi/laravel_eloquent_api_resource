@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -28,4 +29,9 @@ Route::get('/categories/{id}', function ($id){
 Route::get('/categories', function (){
     $categories = Category::all();
     return CategoryResource::collection($categories);
+});
+
+Route::get('categories-custom', function(){
+    $categories = Category::all();
+    return new CategoryCollection($categories);
 });
