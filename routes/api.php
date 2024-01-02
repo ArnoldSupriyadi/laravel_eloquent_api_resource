@@ -2,7 +2,9 @@
 
 use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,15 @@ Route::get('/categories', function (){
     return CategoryResource::collection($categories);
 });
 
-Route::get('categories-custom', function(){
+Route::get('/categories-custom', function(){
     $categories = Category::all();
     return new CategoryCollection($categories);
+});
+
+Route::get('/products/{id}', function ($id) {
+    $product = Product::find($id);
+    $product->load("category");
+    return (new ProductResource($product))
+        ->response()
+        ->header("X-Powered-By", "Programmer Zaman Now");
 });

@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     protected $table = "categories";
-    protected $primrayKey = "id";
+    protected $primaryKey = "id";
     protected $keyType = "int";
-    public $incerementing = true;
+    public $incrementing = true;
     public $timestamps = true;
 
     public function products(): HasMany
