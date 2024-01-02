@@ -15,8 +15,8 @@ class CategorySimpleResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "data" => CategorySimpleResource::collection($this->collection),
-            "total" => count($this->collection)
+            "id" => $this->id,
+            "name" => $this->name,
         ];
     }
 }

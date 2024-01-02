@@ -40,8 +40,16 @@ Route::get('/categories-custom', function(){
 
 Route::get('/products/{id}', function ($id) {
     $product = Product::find($id);
-    $product->load("category");
-    return (new ProductResource($product))
-        ->response()
-        ->header("X-Powered-By", "Programmer Zaman Now");
+    if ($product) {
+        // Load the 'category' relationship
+        $product->load("category");
+
+        // Return the product resource
+        return (new ProductResource($product))
+            ->response()
+            ->header("X-Powered-By", "Programmer Zaman Now");
+    } else {
+        // Product not found, return an appropriate response
+        return response()->json(['error' => 'Product not found'], 404);
+    }
 });

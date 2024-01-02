@@ -15,13 +15,11 @@ class ProductTest extends TestCase
      * A basic feature test example.
      */
     public function testProduct()
-{
-    $this->seed([CategorySeeder::class, ProductSeeder::class]);
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
 
-    $product = Product::with('category')->first();
+        $product = Product::first();
 
-    // Check if a product exists in the database
-    if ($product) {
         $this->get("/api/products/$product->id")
             ->assertStatus(200)
             ->assertHeader("X-Powered-By", "Programmer Zaman Now")
@@ -38,9 +36,6 @@ class ProductTest extends TestCase
                     "updated_at" => $product->updated_at->toJSON(),
                 ]
             ]);
-    } else {
-        $this->fail("No products found in the database.");
-    }
-}
 
+    }
 }
