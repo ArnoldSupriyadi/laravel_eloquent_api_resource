@@ -25,10 +25,11 @@ class CategoryTest extends TestCase
                 'data' => [
                     'id' => $category->id,
                     'name' => $category->name,
-                    'created_at' => $category->created_at->toJson(),
-                    'updated_at' => $category->created_at->toJson(),
+                    'created_at' => $category->created_at->toJSON(),
+                    'updated_at' => $category->updated_at->toJSON(),
                 ]
             ]);
+
     }
 
     public function testResourceCollection()
