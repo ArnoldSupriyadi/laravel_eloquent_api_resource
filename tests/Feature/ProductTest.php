@@ -42,8 +42,8 @@ class ProductTest extends TestCase
     {
         $this->seed([CategorySeeder::class, ProductSeeder::class]);
         $response = $this->get('/api/products')
-            ->assertStatus(200); 
-            // ->assertHeader("X-Powered-By", "Programmer Zaman Now");
+            ->assertStatus(200) 
+            ->assertHeader("X-Powered-By", "Programmer Zaman Now");
 
         $names = $response->json("data.*.name");
         for ($i = 0; $i < 5; $i++) {
@@ -67,4 +67,21 @@ class ProductTest extends TestCase
         self::assertNotNull($response->json("data"));
     }
 
+    public function testAdditional()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+        $product = Product::first();
+        $response = $this->get('/api/products-debug/' . $product->id)
+            ->assertStatus(200)
+            ->assertJson([
+                "author" => "Programmer Zaman Now",
+                "data" => [
+                    "id" => $product->id,
+                    "name" => $product->name,
+                    "price" => $product->price,
+                ]
+            ]);
+
+        self::assertNotNull($response->json("server_time"));
+    }
 }
